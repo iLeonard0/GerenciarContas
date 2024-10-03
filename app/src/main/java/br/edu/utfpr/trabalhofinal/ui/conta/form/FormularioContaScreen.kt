@@ -343,9 +343,9 @@ fun DatePickerDialog(
     onDismiss: () -> Unit,
 ) {
     val selectedDate by remember { mutableStateOf(initialDate) }
-    var year by remember { mutableStateOf(selectedDate.year) }
-    var month by remember { mutableStateOf(selectedDate.monthValue) }
-    var day by remember { mutableStateOf(selectedDate.dayOfMonth) }
+    var year by remember { mutableIntStateOf(selectedDate.year) }
+    var month by remember { mutableIntStateOf(selectedDate.monthValue) }
+    var day by remember { mutableIntStateOf(selectedDate.dayOfMonth) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
