@@ -105,18 +105,16 @@ class FormularioContaViewModel(
                 salvando = true
             )
 
-            // Verifica se a data não está vazia
             if (state.data.valor.isBlank()) {
-                // Exiba uma mensagem de erro ou retorne sem salvar
                 println("O campo de data não pode estar vazio.")
                 state = state.copy(
                     salvando = false,
-                    codigoMensagem = R.string.data_obrigatoria // Certifique-se de ter uma mensagem de erro apropriada
+                    codigoMensagem = R.string.data_obrigatoria
                 )
                 return
             }
 
-            // Defina o formatador para o formato correto
+
             val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
             val conta = state.conta.copy(
                 descricao = state.descricao.valor,

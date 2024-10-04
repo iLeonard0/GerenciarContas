@@ -173,16 +173,16 @@ private fun List(
                 conta.valor.formatar()
             }
 
-            // Lógica para determinar o ícone e a cor
+
             val (icon, iconColor) = when {
                 conta.paga && conta.tipo == TipoContaEnum.RECEITA -> {
-                    Pair(Icons.Filled.ThumbUp, Color(0xFF00984E)) // Verde para receita paga
+                    Pair(Icons.Filled.ThumbUp, Color(0xFF00984E))
                 }
                 conta.paga && conta.tipo == TipoContaEnum.DESPESA -> {
-                    Pair(Icons.Filled.ThumbUp, Color(0xFFCF5355)) // Vermelho para despesa paga
+                    Pair(Icons.Filled.ThumbUp, Color(0xFFCF5355))
                 }
                 else -> {
-                    Pair(Icons.Filled.ThumbDownOffAlt, Color(0xFFCF5355)) // Vermelho para conta não paga
+                    Pair(Icons.Filled.ThumbDownOffAlt, Color(0xFFCF5355))
                 }
             }
 
@@ -196,7 +196,7 @@ private fun List(
                     )
                 },
                 headlineContent = {
-                    Text(descricao) // Descrição na linha de cima
+                    Text(descricao)
                 },
                 supportingContent = {
                     Row(
@@ -204,11 +204,11 @@ private fun List(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(text = dataFormatada, color = Color.Gray) // Data à esquerda
+                        Text(text = dataFormatada, color = Color.Gray)
                         Text(
-                            text = valorFormatado, // Valor à direita
-                            color = if (conta.tipo == TipoContaEnum.DESPESA) Color(0xFFCF5355) // Vermelho para despesas
-                            else Color(0xFF00984E), // Verde para receitas
+                            text = valorFormatado,
+                            color = if (conta.tipo == TipoContaEnum.DESPESA) Color(0xFFCF5355)
+                            else Color(0xFF00984E),
                             textAlign = TextAlign.End
                         )
                     }
