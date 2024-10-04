@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.ThumbDown
+import androidx.compose.material.icons.filled.ThumbDownOffAlt
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -172,10 +173,17 @@ private fun List(
                 conta.valor.formatar()
             }
 
-            val (icon, iconColor) = if (conta.paga) {
-                Pair(Icons.Filled.ThumbUp, Color(0xFF00984E))
-            } else {
-                Pair(Icons.Filled.ThumbDown, Color(0xFFCF5355))
+            // Lógica para determinar o ícone e a cor
+            val (icon, iconColor) = when {
+                conta.paga && conta.tipo == TipoContaEnum.RECEITA -> {
+                    Pair(Icons.Filled.ThumbUp, Color(0xFF00984E)) // Verde para receita paga
+                }
+                conta.paga && conta.tipo == TipoContaEnum.DESPESA -> {
+                    Pair(Icons.Filled.ThumbUp, Color(0xFFCF5355)) // Vermelho para despesa paga
+                }
+                else -> {
+                    Pair(Icons.Filled.ThumbDownOffAlt, Color(0xFFCF5355)) // Vermelho para conta não paga
+                }
             }
 
             ListItem(
@@ -187,13 +195,20 @@ private fun List(
                         tint = iconColor
                     )
                 },
-                headlineContent = { Text(descricao) },
+                headlineContent = {
+                    Text(descricao) // Descrição na linha de cima
+                },
                 supportingContent = {
-                    Column {
-                        Text(text = dataFormatada, color = Color.Gray)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(text = dataFormatada, color = Color.Gray) // Data à esquerda
                         Text(
-                            text = valorFormatado,
-                            color = if (conta.tipo == TipoContaEnum.DESPESA) Color(0xFFCF5355) else Color(0xFF00984E),
+                            text = valorFormatado, // Valor à direita
+                            color = if (conta.tipo == TipoContaEnum.DESPESA) Color(0xFFCF5355) // Vermelho para despesas
+                            else Color(0xFF00984E), // Verde para receitas
                             textAlign = TextAlign.End
                         )
                     }
@@ -231,7 +246,7 @@ private fun BottomBar(
             textColor = if (contas.calcularSaldo() < BigDecimal.ZERO) Color(0xFFCF5355) else Color(0xFF00984E)
         )
         Totalizador(
-            modifier = Modifier.padding(bottom = 20.dp),
+            modifier = Modifier.padding(bottom = 60.dp),
             titulo = stringResource(R.string.previsao),
             valor = contas.calcularProjecao(),
             textColor = if (contas.calcularProjecao() < BigDecimal.ZERO) Color(0xFFCF5355) else Color(0xFF00984E)

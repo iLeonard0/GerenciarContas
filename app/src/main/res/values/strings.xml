@@ -33,4 +33,5 @@
     <string name="atencao">Atenção</string>
     <string name="mensagem_confirmacao_remover_contato">Esse registro será removido permanentemente</string>
     <string name="valor_invalido">Informe um valor válido</string>
+    <string name="data_obrigatoria">Data é obrigatória\n</string>
 </resources>
