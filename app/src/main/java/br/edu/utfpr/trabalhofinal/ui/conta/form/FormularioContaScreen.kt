@@ -323,9 +323,15 @@ fun DatePickerField(
         }
     )
 
+    val initialDate: LocalDate = if (selectedDate.isBlank()) {
+        LocalDate.now()
+    } else {
+        LocalDate.parse(selectedDate, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+    }
+
     if (showDatePicker) {
         DatePickerDialog(
-            initialDate = LocalDate.parse(selectedDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+            initialDate = initialDate,
             onDateSelected = {
                 onDateSelected(it.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
                 showDatePicker = false
